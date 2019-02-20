@@ -1,6 +1,8 @@
 import 'isomorphic-fetch'
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
+import Nav from '../components/Podcast/Nav.jsx';
+import Picture from '../components/Podcast/Picture.jsx';
+import Player from '../components/Podcast/Player.jsx';
 
 export default class extends React.Component {
 
@@ -12,43 +14,19 @@ export default class extends React.Component {
   }
 
   render() {
-    const { clip } = this.props
+    const { clip } = this.props;
 
     return <Layout title={clip.title}>
 
-      <div className='modal'>
-        <div className='clip'>
-          <nav>
-            <Link href={`/channel?id=${clip.channel.id}`}>
-              <a className='close'>&lt; Volver</a>
-            </Link>
-          </nav>
-
-          <picture>
-            <div style={{ backgroundImage: `url(${clip.urls.image || clip.channel.urls.logo_image.original})` }} />
-          </picture>
-
-          <div className='player'>
-            <h3>{ clip.title }</h3>
-            <h6>{ clip.channel.title }</h6>
-            <audio controls autoPlay={true}>
-              <source src={clip.urls.high_mp3} type='audio/mpeg' />
-            </audio>
-          </div>
+        <div className='modal'>
+            <div className='clip'>
+              <Nav clip={ clip }/>
+              <Picture clip={ clip }/>
+              <Player clip={ clip }/>
+            </div>
         </div>
-      </div>
 
       <style jsx>{`
-        nav {
-          background: none;
-        }
-        nav a {
-          display: inline-block;
-          padding: 15px;
-          color: white;
-          cursor: pointer;
-          text-decoration: none;
-        }
         .clip {
           display: flex;
           height: 100%;
@@ -56,39 +34,6 @@ export default class extends React.Component {
           background: #8756ca;
           color: white;
         }
-        picture {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex: 1 1;
-          flex-direction: column;
-          width: auto;
-          padding: 10%;
-        }
-        picture div {
-          width: 100%;
-          height: 100%;
-          background-position: 50% 50%;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
-        .player {
-          padding: 30px;
-          background: rgba(0,0,0,0.3);
-          text-align: center;
-        }
-        h3 {
-          margin: 0;
-        }
-        h6 {
-          margin: 0;
-          margin-top: 1em;
-        }
-        audio {
-          margin-top: 2em;
-          width: 100%;
-        }
-
         .modal {
           position: fixed;
           top: 0;
