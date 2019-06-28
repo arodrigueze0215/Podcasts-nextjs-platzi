@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "alias": "platzi-podcast",
+    "name": "podcast",
+    "builds": [
+        { "src": "next.config.js", "use": "@now/next" }
+      ]
+  }
+  
